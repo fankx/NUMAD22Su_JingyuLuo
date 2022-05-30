@@ -14,15 +14,29 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.137" />
 
     <Button
         android:id="@+id/buttonPanel"
         android:layout_width="205dp"
         android:layout_height="48dp"
-        android:layout_marginTop="436dp"
+        android:layout_marginTop="268dp"
         android:text="@string/about_me"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <Button
+        android:id="@+id/Clicky_Clicky"
+        android:layout_width="205dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="376dp"
+        android:text="Clicky!"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />

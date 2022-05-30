@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+import android.content.Intent;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -22,6 +24,19 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this,"Jingyu Luo - luo.jingy@northeastern.edu",Toast.LENGTH_SHORT).show();
             }
         });
+        Button Clicky = (Button)findViewById(R.id.Clicky_Clicky);
 
+        Clicky.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                openActivityClicky();
+            }
+        });
+
+    }
+    public void openActivityClicky(){
+        Intent intent = new Intent(this,Clicky.class);
+        startActivity(intent);
     }
 }
