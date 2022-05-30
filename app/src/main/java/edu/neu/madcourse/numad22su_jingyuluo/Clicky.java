@@ -21,7 +21,7 @@ public class Clicky extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 TextView disp = (TextView)findViewById(R.id.textView2);
-                disp.setText("Pressed:A");
+                disp.setText("Pressed: A");
             }
         });
 
@@ -30,7 +30,7 @@ public class Clicky extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 TextView disp = (TextView)findViewById(R.id.textView2);
-                disp.setText("Pressed:B");
+                disp.setText("Pressed: B");
             }
         });
 
@@ -39,7 +39,7 @@ public class Clicky extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 TextView disp = (TextView)findViewById(R.id.textView2);
-                disp.setText("Pressed:C");
+                disp.setText("Pressed: C");
             }
         });
 
@@ -48,7 +48,7 @@ public class Clicky extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 TextView disp = (TextView)findViewById(R.id.textView2);
-                disp.setText("Pressed:D");
+                disp.setText("Pressed: D");
             }
         });
 
@@ -57,7 +57,7 @@ public class Clicky extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 TextView disp = (TextView)findViewById(R.id.textView2);
-                disp.setText("Pressed:E");
+                disp.setText("Pressed: E");
             }
         });
 
@@ -66,7 +66,7 @@ public class Clicky extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 TextView disp = (TextView)findViewById(R.id.textView2);
-                disp.setText("Pressed:F");
+                disp.setText("Pressed: F");
             }
         });
     }
