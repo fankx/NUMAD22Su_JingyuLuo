@@ -6,17 +6,24 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import java.util.ArrayList;
-import java.util.Random;
+import java.util.regex.Pattern;
 
 public class LinkCollector extends AppCompatActivity {
-
-    //Creating the essential parts of a Recycler view: RecyclerView, Adapter, LayoutManager
+    //Creating the essential parts for a Recycler view: RecyclerView, Adapter, LayoutManager
     private ArrayList<ItemCard> itemList = new ArrayList<>();
 
     private RecyclerView recyclerView;
@@ -26,6 +33,53 @@ public class LinkCollector extends AppCompatActivity {
 
     private static final String KEY_OF_INSTANCE = "KEY_OF_INSTANCE";
     private static final String NUMBER_OF_ITEMS = "NUMBER_OF_ITEMS";
+
+
+    protected void dialog(){
+        final EditText linkName=new EditText(this);
+        final EditText linkUrl=new EditText(this);
+        Pattern pattern;
+
+        LayoutInflater factory = LayoutInflater.from(LinkCollector.this);
+
+        final View DialogView = factory.inflate(R.layout.dialog_layout, null);
+
+        AlertDialog dlg = new AlertDialog.Builder(LinkCollector.this)
+                .setTitle("*Link Collector*")
+                .setView(DialogView)
+                .setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                dialog.dismiss();
+                            }
+                        })
+                .setPositiveButton("Add",
+                        new DialogInterface.OnClickListener()
+                        {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                EditText linkName = (EditText) DialogView.findViewById(R.id.name);
+                                String strLinkName = linkName.getText().toString();
+                                EditText linkUrl = (EditText) DialogView.findViewById(R.id.url);
+                                String strLinkUrl = linkUrl.getText().toString();
+                                if (android.util.Patterns.WEB_URL.matcher(strLinkUrl).matches()) {
+                                    ItemCard item = new ItemCard(strLinkName, strLinkUrl);
+                                    itemList.add(item);
+                                    Snackbar snackbar = Snackbar.make(recyclerView,"Add an item",Snackbar.LENGTH_SHORT);
+                                    snackbar.show();
+                                }
+                                else{
+                                    Snackbar snackbar = Snackbar.make(recyclerView, "Invalid Url", Snackbar.LENGTH_SHORT);
+                                    snackbar.show();
+                                }
+
+
+                            }
+                        })
+                .create();
+        dlg.show();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +92,11 @@ public class LinkCollector extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int pos = 0;
-                addItem(pos);
+                dialog();
             }
         });
 
+        //Specify what action a specific gesture performs, in this case swiping right or left deletes the entry
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
@@ -62,6 +116,8 @@ public class LinkCollector extends AppCompatActivity {
         itemTouchHelper.attachToRecyclerView(recyclerView);
     }
 
+
+    // Handling Orientation Changes on Android
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
 
@@ -69,21 +125,20 @@ public class LinkCollector extends AppCompatActivity {
         int size = itemList == null ? 0 : itemList.size();
         outState.putInt(NUMBER_OF_ITEMS, size);
 
+        // Need to generate unique key for each item
+        // This is only a possible way to do, please find your own way to generate the key
         for (int i = 0; i < size; i++) {
             // put image information id into instance
-            outState.putInt(KEY_OF_INSTANCE + i + "0", itemList.get(i).getImageSource());
+            outState.putString(KEY_OF_INSTANCE + i + "0", itemList.get(i).getLinkName());
             // put itemName information into instance
-            outState.putString(KEY_OF_INSTANCE + i + "1", itemList.get(i).getItemName());
-            // put itemDesc information into instance
-            outState.putString(KEY_OF_INSTANCE + i + "2", itemList.get(i).getItemDesc());
-            // put isChecked information into instance
-            outState.putBoolean(KEY_OF_INSTANCE + i + "3", itemList.get(i).getStatus());
+            outState.putString(KEY_OF_INSTANCE + i + "1", itemList.get(i).getLinkUrl());
         }
         super.onSaveInstanceState(outState);
 
     }
 
     private void init(Bundle savedInstanceState) {
+
         initialItemData(savedInstanceState);
         createRecyclerView();
     }
@@ -98,17 +153,11 @@ public class LinkCollector extends AppCompatActivity {
 
                 // Retrieve keys we stored in the instance
                 for (int i = 0; i < size; i++) {
-                    int imgId = savedInstanceState.getInt(KEY_OF_INSTANCE + i + "0");
-                    String itemName = savedInstanceState.getString(KEY_OF_INSTANCE + i + "1");
-                    String itemDesc = savedInstanceState.getString(KEY_OF_INSTANCE + i + "2");
-                    boolean isChecked = savedInstanceState.getBoolean(KEY_OF_INSTANCE + i + "3");
 
-                    // We need to make sure names such as "XXX(checked)" will not duplicate
-                    // Use a tricky way to solve this problem, not the best though
-                    if (isChecked) {
-                        itemName = itemName.substring(0, itemName.lastIndexOf("("));
-                    }
-                    ItemCard itemCard = new ItemCard(imgId, itemName, itemDesc, isChecked);
+                    String linkName = savedInstanceState.getString(KEY_OF_INSTANCE + i + "0");
+                    String linkUrl  = savedInstanceState.getString(KEY_OF_INSTANCE + i + "1");
+
+                    ItemCard itemCard = new ItemCard(linkName, linkUrl);
 
                     itemList.add(itemCard);
                 }
@@ -129,32 +178,21 @@ public class LinkCollector extends AppCompatActivity {
         ItemClickListener itemClickListener = new ItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                //attributions bond to the item has been changed
-                itemList.get(position).onItemClick(position);
+                String url=itemList.get(position).getLinkUrl();
+                if (!url.startsWith("http://")&&!url.startsWith("https://"))
+                    url="http://" +url;
+                Uri uri=Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                startActivity(intent);
 
-                rviewAdapter.notifyItemChanged(position);
             }
 
-            @Override
-            public void onCheckBoxClick(int position) {
-                //attributions bond to the item has been changed
-                itemList.get(position).onCheckBoxClick(position);
-
-                rviewAdapter.notifyItemChanged(position);
-            }
         };
         rviewAdapter.setOnItemClickListener(itemClickListener);
-
         recyclerView.setAdapter(rviewAdapter);
         recyclerView.setLayoutManager(rLayoutManger);
 
-
     }
 
-    private void addItem(int position) {
-        itemList.add(position, new ItemCard(R.drawable.empty, "No Logo item", "Item id: " + Math.abs(new Random().nextInt(100000)), false));
-        Toast.makeText(LinkCollector.this, "Add an item", Toast.LENGTH_SHORT).show();
 
-        rviewAdapter.notifyItemInserted(position);
-    }
 }

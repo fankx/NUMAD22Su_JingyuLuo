@@ -1,9 +1,11 @@
 package edu.neu.madcourse.numad22su_jingyuluo;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -13,7 +15,6 @@ public class RviewAdapter extends RecyclerView.Adapter<RviewHolder> {
     private final ArrayList<ItemCard> itemList;
     private ItemClickListener listener;
 
-    //Constructor
     public RviewAdapter(ArrayList<ItemCard> itemList) {
         this.itemList = itemList;
     }
@@ -32,10 +33,8 @@ public class RviewAdapter extends RecyclerView.Adapter<RviewHolder> {
     public void onBindViewHolder(RviewHolder holder, int position) {
         ItemCard currentItem = itemList.get(position);
 
-        holder.itemIcon.setImageResource(currentItem.getImageSource());
-        holder.itemName.setText(currentItem.getItemName());
-        holder.itemDesc.setText(currentItem.getItemDesc());
-        holder.checkBox.setChecked(currentItem.getStatus());
+        holder.itemName.setText(currentItem.getLinkName());
+        holder.itemDesc.setText(currentItem.getLinkUrl());
     }
 
     @Override
