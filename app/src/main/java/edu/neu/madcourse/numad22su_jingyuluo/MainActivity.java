@@ -26,7 +26,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        Button Clicky = (Button)findViewById(R.id.Clicky_Clicky);
+
+        Button linkCollector = findViewById(R.id.LinkCollector);
+        linkCollector.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                Intent intent=new Intent(MainActivity.this,LinkCollector.class);
+
+                startActivity(intent);
+            }
+        });
+
+        Button Clicky = findViewById(R.id.Clicky_Clicky);
 
         Clicky.setOnClickListener(new View.OnClickListener() {
 

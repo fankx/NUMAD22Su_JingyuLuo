@@ -4,9 +4,10 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/fankx/Desktop/cs5520/NUMAD22Su_JingyuLuo/app/src/main/res/layout/activity_about_me.xml" value="0.2571428571428571" />
-        <entry key="..\:/Users/fankx/Desktop/cs5520/NUMAD22Su_JingyuLuo/app/src/main/res/layout/activity_clicky.xml" value="0.1" />
+        <entry key="..\:/Users/fankx/Desktop/cs5520/NUMAD22Su_JingyuLuo/app/src/main/res/layout/activity_clicky.xml" value="0.25" />
         <entry key="..\:/Users/fankx/Desktop/cs5520/NUMAD22Su_JingyuLuo/app/src/main/res/layout/activity_link_collector.xml" value="0.27152988855116517" />
         <entry key="..\:/Users/fankx/Desktop/cs5520/NUMAD22Su_JingyuLuo/app/src/main/res/layout/activity_main.xml" value="0.24064171122994651" />
+        <entry key="..\:/Users/fankx/Desktop/cs5520/NUMAD22Su_JingyuLuo/app/src/main/res/layout/item_card.xml" value="0.33" />
       </map>
     </option>
   </component>

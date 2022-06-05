@@ -14,9 +14,6 @@
         android:theme="@style/Theme.NUMAD22Su_JingyuLuo"
         tools:targetApi="31">
         <activity
-            android:name=".LinkCollector"
-            android:exported="false" />
-        <activity
             android:name=".AboutMe"
             android:exported="false" />
         <activity
@@ -31,6 +28,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".LinkCollector" />
     </application>
 
 </manifest>
