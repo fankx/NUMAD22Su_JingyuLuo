@@ -16,7 +16,7 @@ public class Clicky extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clicky);
 
-        Button A = (Button)findViewById(R.id.buttonA);
+        Button A = findViewById(R.id.buttonA);
         A.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -25,7 +25,7 @@ public class Clicky extends AppCompatActivity {
             }
         });
 
-        Button B = (Button)findViewById(R.id.buttonB);
+        Button B = findViewById(R.id.buttonB);
         B.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -34,7 +34,7 @@ public class Clicky extends AppCompatActivity {
             }
         });
 
-        Button C = (Button)findViewById(R.id.buttonC);
+        Button C = findViewById(R.id.buttonC);
         C.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -43,7 +43,7 @@ public class Clicky extends AppCompatActivity {
             }
         });
 
-        Button D = (Button)findViewById(R.id.buttonD);
+        Button D = findViewById(R.id.buttonD);
         D.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -52,7 +52,7 @@ public class Clicky extends AppCompatActivity {
             }
         });
 
-        Button E = (Button)findViewById(R.id.buttonE);
+        Button E = findViewById(R.id.buttonE);
         E.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -61,7 +61,7 @@ public class Clicky extends AppCompatActivity {
             }
         });
 
-        Button F = (Button)findViewById(R.id.buttonF);
+        Button F = findViewById(R.id.buttonF);
         F.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){

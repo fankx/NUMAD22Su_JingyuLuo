@@ -21,7 +21,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this,"Jingyu Luo - luo.jingy@northeastern.edu",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(MainActivity.this, AboutMe.class);
+
+                startActivity(intent);
             }
         });
         Button Clicky = (Button)findViewById(R.id.Clicky_Clicky);

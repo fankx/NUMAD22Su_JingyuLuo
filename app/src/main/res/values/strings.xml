@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">NUMAD22Su_JingyuLuo</string>
     <string name="about_me">About Me</string>
+    <string name="clicky">Clicky!</string>
+    <string name="link_collector">Link Collector</string>
+    <string name="jingyu_luo_luo_jingy_northeastern_edu">Jingyu Luo; luo.jingy@northeastern.edu</string>
 </resources>
