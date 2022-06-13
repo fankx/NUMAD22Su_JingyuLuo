@@ -60,7 +60,7 @@ public class PrimePage extends AppCompatActivity {
                 });
                 Log.d(TAG, "Running on a different thread using Runnable Interface: " + num);
                 try {
-                    Thread.sleep(300); //Makes the thread sleep or be inactive for 10 seconds
+                    Thread.sleep(500); //Makes the thread sleep or be inactive for 10 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
