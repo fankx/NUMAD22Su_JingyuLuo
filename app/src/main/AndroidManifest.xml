@@ -17,6 +17,9 @@
             android:name=".AboutMe"
             android:exported="false" />
         <activity
+            android:name=".PrimePage"
+            android:exported="false" />
+        <activity
             android:name=".Clicky"
             android:exported="false" />
         <activity

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 import android.content.Intent;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button linkCollector = findViewById(R.id.LinkCollector);
+        Button linkCollector = findViewById(R.id.btn_linkCollector);
         linkCollector.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -39,13 +38,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        Button Clicky = findViewById(R.id.Clicky_Clicky);
-
+        Button Clicky = findViewById(R.id.btn_clicky);
         Clicky.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
                 openActivityClicky();
+            }
+        });
+
+        Button Prime = findViewById(R.id.btn_prime);
+        Prime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, PrimePage.class);
+                startActivity(intent);
             }
         });
 

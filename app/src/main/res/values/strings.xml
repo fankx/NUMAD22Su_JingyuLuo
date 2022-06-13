@@ -9,4 +9,5 @@
     <string name="description">This image acts as an icon.</string>
     <string name="link_url" />
     <string name="link_name" />
+    <string name="prime_time">Prime Time</string>
 </resources>
