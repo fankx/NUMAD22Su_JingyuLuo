@@ -13,7 +13,5 @@
     <string name="reset_distance">Reset distance</string>
     <string name="change_the_precision">change the precision</string>
     <string name="total_distance_traveled_0_0_meters">total distance traveled: 0.0 meters</string>
-    <string name="longitude_71_072937495">Longitude: -71.072937495</string>
-    <string name="latitude_42_42882343">Latitude: 42.42882343</string>
     <string name="locator">Locator</string>
 </resources>
