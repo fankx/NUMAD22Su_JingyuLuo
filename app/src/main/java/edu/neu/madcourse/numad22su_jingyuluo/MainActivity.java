@@ -56,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button Locator = findViewById(R.id.btn_locator);
+        Locator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LocatorPage.class);
+                startActivity(intent);
+            }
+        });
+
     }
     public void openActivityClicky(){
         Intent intent = new Intent(this,Clicky.class);
