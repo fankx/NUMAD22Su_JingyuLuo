@@ -16,11 +16,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.util.List;
 
@@ -28,22 +31,43 @@ public class LocatorPage extends AppCompatActivity {
 
     TextView tv_latitude;
     TextView tv_longitude;
+    TextView tv_distance;
+    Button btn_reset;
+    Button btn_changePrecision;
     private LocationManager locationManager;
     private String locationProvider = null;
 
-    private FusedLocationProviderClient fusedLocationClient;
-    private Location startLocation;
-    private Location endLocation;
+    private double[] startLocation;
+    private double[] endLocation;
+    private boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_locator_page);
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
-
         tv_longitude = findViewById(R.id.tv_longitude);
         tv_latitude = findViewById(R.id.tv_latitude);
+        tv_distance = findViewById(R.id.tv_distance);
+        btn_reset = findViewById(R.id.btn_distanceReset);
+        btn_changePrecision = findViewById(R.id.btn_precision);
+        startLocation = new double[2];
+        endLocation = new double[2];
+
+        btn_changePrecision.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
+
+        btn_reset.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                flag = false;
+            }
+        });
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -90,9 +114,10 @@ public class LocatorPage extends AppCompatActivity {
                     } else {
                         Toast.makeText(this, "Can't find the location", Toast.LENGTH_SHORT).show();
                     }
+
                     //get location
                     try {
-                        locationManager.requestLocationUpdates(locationProvider, 0, 0, locationListener);
+                        locationManager.requestLocationUpdates(locationProvider, 1000, 0, locationListener);
 
                     } catch (SecurityException e) {
                     }
@@ -118,9 +143,28 @@ public class LocatorPage extends AppCompatActivity {
         //location change
         @Override
         public void onLocationChanged(Location location) {
+            if (!flag) {
+                startLocation[0] = location.getLatitude();
+                startLocation[1] = location.getLongitude();
+                flag = true;
+            }
             if (location != null) {
+                endLocation[0] = location.getLatitude();
+                endLocation[1] = location.getLongitude();
+
+                Location loc1 = new Location("");
+                loc1.setLatitude(startLocation[0]);
+                loc1.setLongitude(startLocation[1]);
+
+                Location loc2 = new Location("");
+                loc2.setLatitude(endLocation[0]);
+                loc2.setLongitude(endLocation[1]);
+
+                float distanceInMeters = loc1.distanceTo(loc2);
+//                Location.distanceBetween(startLocation[0], startLocation[1], endLocation[0], endLocation[1], distanceResult);
                 tv_longitude.setText(String.valueOf("Longitude: " + location.getLongitude()));
                 tv_latitude.setText(String.valueOf("Latitude: " + location.getLatitude()));
+                tv_distance.setText(String.valueOf("total distance traveled: " + distanceInMeters + " meters"));
             }
         }
     };
